@@ -18,8 +18,7 @@ def green(
     card_url: Annotated[str, typer.Option()] = "",
 ):
     """Start the green agent (assessment manager)."""
-    del card_url
-    start_green_agent(agent_name="green_agent", host=host, port=port)
+    start_green_agent(agent_name="green_agent", host=host, port=port, card_url=card_url)
 
 
 @app.command()
@@ -29,8 +28,7 @@ def white(
     card_url: Annotated[str, typer.Option()] = "",
 ):
     """Start the white agent (target being tested)."""
-    del card_url
-    start_white_agent(agent_name="repl_user", host=host, port=port)
+    start_white_agent(agent_name="repl_user", host=host, port=port, card_url=card_url)
 
 
 @app.command()

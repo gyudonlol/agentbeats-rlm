@@ -212,8 +212,10 @@ class RlmGreenAgentExecutor(AgentExecutor):
         print("Green agent: Received a task, parsing...")
         user_input = context.get_user_input()
         tags = parse_tags(user_input)
-        white_agent_url = tags["white_agent_url"]
-        env_config_str = tags["env_config"]
+        print("Green agent: user_input:", user_input)
+        print("Green agent: tags:", tags)
+        white_agent_url = tags.get("white_agent_url", "http://repl_user:9009")
+        env_config_str = tags.get("env_config", "{\"task_ids\":[1]}")
         env_config = json.loads(env_config_str)
 
         # set up the environment
@@ -244,10 +246,10 @@ class RlmGreenAgentExecutor(AgentExecutor):
         raise NotImplementedError
 
 
-def start_green_agent(agent_name="rlm_green_agent", host="localhost", port=9001):
+def start_green_agent(agent_name="rlm_green_agent", host="localhost", port=9001, card_url=None):
     print("Starting green agent...")
     agent_card_dict = load_agent_card_toml(agent_name)
-    url = f"http://{host}:{port}"
+    url = card_url or f"http://{host}:{port}"
     agent_card_dict["url"] = url  # complete all required card fields
 
     request_handler = DefaultRequestHandler(
