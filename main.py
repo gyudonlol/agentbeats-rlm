@@ -30,7 +30,7 @@ def white(
 ):
     """Start the white agent (target being tested)."""
     del card_url
-    start_white_agent(agent_name="repl_user", host=host, port=port  )
+    start_white_agent(agent_name="repl_user", host=host, port=port)
 
 
 @app.command()
