@@ -2,6 +2,8 @@
 
 Example code for agentifying RLM using A2A and MCP standards.
 
+Some code in this repo is taken from https://github.com/alexzhang13/rlm-minimal/
+
 ## Project Structure
 
 ```

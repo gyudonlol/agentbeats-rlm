@@ -33,8 +33,8 @@ class REPLResult:
 class REPLEnv:
     def __init__(
         self,
-        # recursive_model: str = "gpt-5-nano",
-        recursive_model: str = "nvidia/nemotron-3-nano-30b-a3b:free",
+        recursive_model: str = "openai/gpt-5-nano",
+        # recursive_model: str = "nvidia/nemotron-3-nano-30b-a3b:free",
         context_json: Optional[dict | list] = None,
         context_str: Optional[str] = None,
         setup_code: str = None,
@@ -134,7 +134,7 @@ class REPLEnv:
             return completion(
                 model=self.sub_rlm, 
                 custom_llm_provider="openai",
-                base_url="https://openrouter.ai/api/v1",
+                # base_url="https://openrouter.ai/api/v1",
                 messages=[{"role": "user", "content": prompt}])["choices"][0]["message"]["content"]
         
         # Add (R)LM query function to globals

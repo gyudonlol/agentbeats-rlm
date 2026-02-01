@@ -5,6 +5,7 @@ import uvicorn
 import tomllib
 import json
 import random
+import re
 import time
 from argparse import Namespace
 
@@ -82,6 +83,23 @@ def load_agent_card_toml(agent_name):
     current_dir = __file__.rsplit("/", 1)[0]
     with open(f"{current_dir}/{agent_name}.toml", "rb") as f:
         return tomllib.load(f)
+
+
+def extract_first_number(text: str) -> str:
+    """
+    Extract the first instance of consecutive numbers from a string.
+
+    Args:
+        text: The string to search for numbers
+
+    Returns:
+        The first consecutive number found as a string, or None if no numbers found
+    """
+    match = re.search(r'\d+', text)
+    if match:
+        return match.group(0)
+    return ""
+
 
 
 def generate_massive_context(num_lines: int = 1_000_000, answer: str = "1298418") -> str:
@@ -166,10 +184,13 @@ async def ask_agent_to_solve(white_agent_url, task, max_num_steps=30):
         if final_tuple:
             final_type, final_content = final_tuple
             if final_type == "FINAL":
+                final_content = extract_first_number(final_content)
                 reward = str(final_content) == answer
                 break
             elif final_type == "FINAL_VAR":
-                reward = repl_env.final_var(final_content) == answer
+                final_content = repl_env.final_var(final_content.strip())
+                final_content = extract_first_number(final_content)
+                reward = str(final_content) == answer
                 break
 
 
