@@ -1,6 +1,7 @@
 """Green agent implementation - manages assessment and evaluation."""
 
 from typing import Dict
+import uuid
 import uvicorn
 import tomllib
 import json
@@ -14,8 +15,8 @@ from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.agent_execution import AgentExecutor, RequestContext
 from a2a.server.events import EventQueue
 from a2a.server.tasks import InMemoryTaskStore
-from a2a.types import AgentCard, SendMessageSuccessResponse, Message
-from a2a.utils import new_agent_text_message, get_text_parts
+from a2a.types import AgentCard, SendMessageSuccessResponse, Message, Part, DataPart, TextPart, Task, TaskStatus, TaskState
+from a2a.utils import new_agent_text_message, get_text_parts, new_artifact
 import dotenv
 
 
@@ -236,11 +237,26 @@ class RlmGreenAgentExecutor(AgentExecutor):
         result_emoji = "✅" if result_bool else "❌"
 
         print("Green agent: Evaluation complete.")
+        message = f"Finished. White agent success: {result_emoji}\nMetrics: {metrics}\n"
+        # await event_queue.enqueue_event(
+        #     new_agent_text_message(
+        #         message
+        #     )
+        # )  # alternative, impl as a task-generating agent
         await event_queue.enqueue_event(
-            new_agent_text_message(
-                f"Finished. White agent success: {result_emoji}\nMetrics: {metrics}\n"
+            Task(
+                id=context.task_id,
+                context_id=context.context_id,
+                artifacts=[new_artifact(
+                    name="Result",
+                    parts=[
+                        Part(root=TextPart(text=message)),
+                        Part(root=DataPart(data=metrics))
+                    ],
+                )],
+                status=TaskStatus(state=TaskState.completed),
             )
-        )  # alternative, impl as a task-generating agent
+        )
 
     async def cancel(self, context: RequestContext, event_queue: EventQueue) -> None:
         raise NotImplementedError
