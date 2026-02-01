@@ -80,8 +80,9 @@ def next_action_prompt(query: str, iteration: int = 0, final_answer: bool = Fals
 
 
 def load_agent_card_toml(agent_name):
+    del agent_name
     current_dir = __file__.rsplit("/", 1)[0]
-    with open(f"{current_dir}/{agent_name}.toml", "rb") as f:
+    with open(f"{current_dir}/rlm_green_agent.toml", "rb") as f:
         return tomllib.load(f)
 
 

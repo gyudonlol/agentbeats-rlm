@@ -1,5 +1,6 @@
 """CLI entry point for agentify-example-rlm."""
 
+from typing import Annotated
 import typer
 import asyncio
 
@@ -11,15 +12,25 @@ app = typer.Typer(help="Agentified RLM - Standardized agent assessment framework
 
 
 @app.command()
-def green():
+def green(
+    host: Annotated[str, typer.Option()] = "localhost",
+    port: Annotated[int, typer.Option()] = 9001,
+    card_url: Annotated[str, typer.Option()] = "",
+):
     """Start the green agent (assessment manager)."""
-    start_green_agent()
+    del card_url
+    start_green_agent(agent_name="green_agent", host=host, port=port)
 
 
 @app.command()
-def white():
+def white(
+    host: Annotated[str, typer.Option()] = "localhost",
+    port: Annotated[int, typer.Option()] = 9002,
+    card_url: Annotated[str, typer.Option()] = "",
+):
     """Start the white agent (target being tested)."""
-    start_white_agent()
+    del card_url
+    start_white_agent(agent_name="repl_user", host=host, port=port  )
 
 
 @app.command()
