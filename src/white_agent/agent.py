@@ -54,9 +54,10 @@ class GeneralWhiteAgentExecutor(AgentExecutor):
         )
         response = completion(
             messages=messages,
-            model="openai/gpt-4o",
+            model="openai/gpt-5.2",
+            # model="nvidia/nemotron-nano-12b-v2-vl:free",
             custom_llm_provider="openai",
-            temperature=0.0,
+            # temperature=0.0,
         )
         next_message = response.choices[0].message.model_dump()  # type: ignore
         messages.append(

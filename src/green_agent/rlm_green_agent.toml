@@ -1,5 +1,5 @@
-name = "tau_green_agent"
-description = "The assessment hosting agent for tau-bench."
+name = "rlm_green_agent"
+description = "The assessment hosting agent for rlm."
 version = "0.1.0"
 
 defaultInputModes = ["text"]
@@ -8,14 +8,14 @@ defaultOutputModes = ["text"]
 streaming = false
 
 [[skills]]
-id = "host_assess_tau_bench"
-name = "Tau-bench assessment hosting"
+id = "host_assess_rlm"
+name = "RLM assessment hosting"
 description = """
 Assess the tool-calling ability of an agent.
 """
-tags = ["green agent", "assessment hosting", "tau-bench"]
-examples = ["""    
-Your task is to instantiate tau-bench to test the agent located at:
+tags = ["green agent", "assessment hosting", "rlm"]
+examples = ["""
+Your task is to instantiate rlm to test the agent located at:
 <white_agent_url>
 http://localhost:9002/
 </white_agent_url>

@@ -1,4 +1,4 @@
-"""CLI entry point for agentify-example-tau-bench."""
+"""CLI entry point for agentify-example-rlm."""
 
 import typer
 import asyncio
@@ -7,7 +7,7 @@ from src.green_agent import start_green_agent
 from src.white_agent import start_white_agent
 from src.launcher import launch_evaluation
 
-app = typer.Typer(help="Agentified Tau-Bench - Standardized agent assessment framework")
+app = typer.Typer(help="Agentified RLM - Standardized agent assessment framework")
 
 
 @app.command()

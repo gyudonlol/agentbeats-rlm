@@ -1,16 +1,13 @@
 [project]
-name = "agentify-example-tau-bench"
+name = "agentify-example-rlm"
 version = "0.1.0"
-description = "Example code of agentifying tau-bench for the blog `Agentify the Agent Assessment`."
+description = "Example code of agentifying rlm for the blog `Agentify the Agent Assessment`."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "a2a-sdk[http-server]>=0.3.8",
     "dotenv>=0.9.9",
-    "tau-bench",
+    "litellm>=1.81.5",
     "typer>=0.19.2",
     "uvicorn>=0.37.0",
 ]
-
-[tool.uv.sources]
-tau-bench = { git = "https://github.com/sierra-research/tau-bench.git" }

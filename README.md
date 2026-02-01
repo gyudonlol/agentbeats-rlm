@@ -1,6 +1,6 @@
-# Agentify Example: Tau-Bench
+# Agentify Example: RLM
 
-Example code for agentifying Tau-Bench using A2A and MCP standards.
+Example code for agentifying RLM using A2A and MCP standards.
 
 ## Project Structure
 
